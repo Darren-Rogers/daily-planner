@@ -1,10 +1,9 @@
 var currentTime = $('#currentDay').html(moment().format('LT MMMM Do, YYYY'));
-for (var i = 9; i <= 20; i++) {
-    var hour = i
-    var idEl = $('<div class="col 1">' + i + '</div>');
+for (var i = 9; i <= 17; i++) {
     var parentEl = $('<div class="row" data-id="' + i + '">');
-    var textEl = $('<textarea class="col-10" activity">');
-    var buttonEl = $('<button class="col-1" save">Save</button>');
+    var idEl = $('<div class="col 1">' + i + '</div>');
+    var textEl = $('<textarea class="col-10 activity">');
+    var buttonEl = $('<button class="col-1 save" >Save</button>');
     parentEl.append(idEl, textEl, buttonEl);
     $('.container').append(parentEl)
     if (moment().hour() === i) {
@@ -18,10 +17,14 @@ for (var i = 9; i <= 20; i++) {
     }
 }
 $('.container').on('click', '.save', function () {
-    var activity = $(this).parent().attr('data-id');
-    var toDo =$(this).prev().val();
-    localStorage.setItem(activity, toDo);
+    var parentId = $(this).parent().attr('data-id');
+    var toDo = $(this).prev().val();
+    localStorage.setItem(parentId, toDo);
 })
-$('.activity').each()
+$('.activity').each(function(){
+    var parentId = $(this).parent().attr('data-id');
+    var getToDo = localStorage.getItem(parentId);
+    $(this).text(getToDo);
+})
 
 
